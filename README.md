@@ -17,6 +17,8 @@ rake db:seed
 Email: `johndoe@example.com`
 Password: `password`
 
+# Demo : <a href="https://whispering-fjord-63019.herokuapp.com/">See Live</a>
+
 # Register Page
 
 <img width="556" alt="Screenshot 2022-01-17 at 8 12 42 PM" src="https://user-images.githubusercontent.com/31414222/149790412-ff0b4394-ea79-4807-b48d-6ef6279d665a.png">
