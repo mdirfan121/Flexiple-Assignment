@@ -19,8 +19,8 @@ class UsersController < ApplicationController
             @name = params[:registeration][:name]
             @email = params[:registeration][:email]
             @password = params[:registeration][:password]
-            User.create(name: @name, email: @email, password: @password)
-
+            user = User.create(name: @name, email: @email, password: @password)
+            Profile.create(user: user)
             redirect_to(login_path)
         end
     end
