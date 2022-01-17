@@ -1,0 +1,13 @@
+<div class="flex flex-col md:flex-row">
+  <div class="w-full md:px-8 md:pt-4">
+    <p> <%= project.title %> </p>
+    <p class="text-black"> <%= project.tech_stack %> </p>
+    <br/>
+    <%= link_to 'Project',
+                project.project_url,
+                :target => '_blank'
+    %> 
+    <p class="text-black"> <%= project.description %> </p>
+    
+  </div>
+</div>

@@ -6,3 +6,8 @@
     </p>
 </div>
 <p class="mt-1 text-justify"><%= description %></p>
+
+<% if project.present? %>
+   <p class="text-lg text-black font-bold"> Projects </p>
+   <%= render partial: "shared/profile/project", title: 'projects', collection: project %>
+<% end %>   
