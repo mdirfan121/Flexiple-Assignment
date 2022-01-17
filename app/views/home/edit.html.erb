@@ -4,6 +4,7 @@
     <%= form_for(@profile, builder: TailwindInputBuilder) do |f| %>
         <div class="flex justify-end items-center w-full mb-4">
             <div>
+                <%= link_to "View Profile", "/profile/#{ @profile.user.id }", :target => "_blank", class: "flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-green-200" %>
                 <%= f.submit "Save", class: "flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-green-600 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-green-200" %><br/>
             </div>
         </div>
@@ -11,9 +12,13 @@
         <%= render 'shared/edit_section', title: "Profile details" do %>
             <%= f.text_field :name, value: @profile.name || current_user.name, placeholder: "Name" %><br/>
             <div class="flex items-center my-4">
-                <%= image_tag gravatar_url_for(current_user), 
-                    id: "image-preview", style:"max-width:200px"
-                %>
+               <% if @profile.image.attached? %>
+                 <%= image_tag @profile.image, class: "w-32 h-32 rounded_full" %>
+               <% end %>
+               
+               <div class="flex items-center my-4 ml-4">
+                 <%= f.file_field :image %>
+               </div>
             </div>
             <%= f.text_field :job_title, value: @profile.job_title, placeholder: "Job title" %><br/>
             <%= f.text_field :total_experience, value: @profile.total_experience, placeholder: "Total experience" %><br/>
@@ -37,6 +42,19 @@
                 <%= render 'shared/input/education', education: education %>
             <% end %><br />
             <%= render 'shared/input/buttons/add', label: "+ Add Education", path: "/educations/new" %>
+        <% end %>
+
+        <%= render 'shared/edit_section', title: "Experience" do %>
+            <%= f.fields_for :experiences do |experience| %>
+                <%= render 'shared/input/experience', experience: experience %>
+                <%= render 'shared/edit_section', title: 'Projects' %>
+                <%= experience.fields_for :projects do |project| %>
+                    <%= render 'shared/input/project', project: project %>
+                <% end %>
+                <%= render 'shared/input/buttons/add', label: '+ Add Project', 
+                            path: "/projects/new?expid=#{experience.object.id}"  %>
+            <% end %><br />
+            <%= render 'shared/input/buttons/add', label: "+ Add Experience", path: "/experiences/new" %>
         <% end %>
         
     <% end %>
